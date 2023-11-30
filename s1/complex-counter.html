@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Learn React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+
+        const Button = ({ text, onClick, counter }) => {
+            const disable = (text != "Reset!") ? ((counter > 9 || counter < 0) ? true : false) : ((counter > 9 || counter < 0) ? false : true);
+            const buttonStyle = (text != "Reset!") ? {} : { margin: 20, display: "block" }
+            return (
+                <button onClick={onClick} style={buttonStyle} disabled={disable}> {text} </button>
+            )
+        }
+
+        const Page = () => {
+            let [number, setNumber] = React.useState(0);
+
+            function addNumber() {
+                setNumber(number + 1);
+            }
+            function decNumber() {
+                setNumber(number - 1);
+            }
+            function resetNumber() {
+                setNumber(0);
+            }
+
+            return (
+                <>
+                    <div>
+                        <Button text={'-'} onClick={decNumber} counter={number} />
+                        <span style={{margin:20}}>{(number > 9 || number < 0) ? "done!" : number}</span>
+                        <Button text={'+'} onClick={addNumber} counter={number} />
+                        <Button text={'Reset!'} onClick={resetNumber} counter={number} />
+                    </div>
+                </>
+            )
+        }
+
+        root.render(<Page />)
+    </script>
+
+</body>
+
+</html>

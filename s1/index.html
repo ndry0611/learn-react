@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Learn React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        /*
+            Remember :
+            - Component
+            - Props
+            - State
+        */
+        const container = document.getElementById("root");
+        const root = ReactDOM.createRoot(container);
+
+        // const Header = (props) => (<h1>Belajar React JS hehe {props.author}</h1>)
+        // function Header(props) {
+        //     return (<h1>Belajar React JS {props.author}</h1>)
+        // }
+
+        //Destructuring
+        const Header = ({ author }) => (<h1>Belajar React JS {author ? author : "halo"}</h1>)
+
+        //Mapping (bertujuan untuk menampilkan dengan style yang sama namun berbeda informasi)
+        function Looping() {
+            const students = ['A', 'B', 'C'];
+            return (
+                <div>
+                    <ul>
+                        {
+                            students.map((student) => (
+                                <li key={student}>{student}</li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            )
+        }
+
+        function HomePage() {
+            // [nilai-state, state-updater-function] = React.useState(nilai-awal-state);
+            let [likes, setLikes] = React.useState(0);
+
+            function handleClick() {
+                setLikes(likes + 1);
+            }
+
+            function resetLike() {
+                setLikes(likes = 0);
+            }
+            
+            return (
+                <>
+                    <Header author="ini,props lagi" />
+                    <Looping />
+                    {/* State and Hooks */}
+                    <button onClick={handleClick}>Like ({likes}) </button>
+                    <br />
+                    <button onClick={resetLike}>Reset </button>
+                </>
+            );
+        }
+
+        root.render(<HomePage />)
+    </script>
+
+</body>
+
+</html>
